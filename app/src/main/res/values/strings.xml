@@ -2,5 +2,15 @@
     <string name="app_name">CamaraDibujo</string>
 
     <string name="vacio"></string>
+    <string name="hacerFoto">Haz una Foto</string>
+    <string name="retocar">Retocar Imagen</string>
+
+    <!--Esto sera para poder obtener los valores de los colores para el pincel-->
+    <string name="tagNegro">#FF000000</string>
+    <string name="tagVerde">#FF00FF00</string>
+    <string name="tagRojo">#FFFF0000</string>
+    <string name="tagAzul">#FF0000FF</string>
+    <string name="tagBlanco">#FFFFFFFF</string>
+
 
 </resources>
