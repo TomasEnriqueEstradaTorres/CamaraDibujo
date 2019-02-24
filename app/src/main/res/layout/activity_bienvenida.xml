@@ -4,16 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/verde"
     tools:context=".Bienvenida">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="217dp"
         android:layout_height="181dp"
-        android:layout_marginTop="261dp"
+        android:layout_marginTop="181dp"
+        android:layout_marginBottom="34dp"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/camara1"
-        android:contentDescription="@string/vacio"/>
+        app:srcCompat="@drawable/camara1" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="163dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="248dp"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/titu1" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="335dp"
+        android:layout_height="85dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/vacio"
+        app:srcCompat="@drawable/titu2" />
 </android.support.constraint.ConstraintLayout>

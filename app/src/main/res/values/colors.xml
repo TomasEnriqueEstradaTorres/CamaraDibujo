@@ -8,6 +8,7 @@
     <color name="verdeClaro1">#a0c951</color>
     <color name="verdeClaro2">#81F781</color>
     <color name="verdeClaro3">#d5e1a5</color>
+    <color name="verdeVivo">#FF00FF00</color>
 
     <color name="naranja">#f28d40</color>
     <color name="amarillo">#ffe65d</color>
@@ -15,14 +16,22 @@
 
     <color name="violeta">#ee82ee</color>
     <color name="negro">#000000</color>
+
     <color name="azul1">#2E2EFE</color>
     <color name="azul2">#0040FF</color>
+    <color name="azulVivo">#FF0000FF</color>
+
     <color name="degradadoAzul">#E0E0F8</color>
     <color name="blancoGris">#e6f3f3</color>
     <color name="blanco1">#fcfcfd</color>
     <color name="blanco2">#ffffff</color>
+
     <color name="rojo">#e30000</color>
+    <color name="rojoVivo">#FFFF0000</color>
+
     <color name="toastborder">#a9f9f9</color>
     <color name="toastbackground">#a2b9f2</color>
     <color name="celeste">#00aaff</color>
+
+
 </resources>

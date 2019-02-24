@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/degradadoAzul"
+    tools:context=".Retocar">
+
+
+    <ImageButton
+        android:id="@+id/anyadir"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="14dp"
+        android:layout_weight="1"
+        android:background="@drawable/mas"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toTopOf="@+id/lienzo"
+        app:layout_constraintEnd_toStartOf="@+id/trazo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/trazo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="26dp"
+        android:layout_weight="1"
+        android:background="@drawable/pincel2"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toTopOf="@+id/lienzo"
+        app:layout_constraintEnd_toStartOf="@+id/borrar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/borrar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="22dp"
+        android:layout_weight="1"
+        android:background="@drawable/borrador"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toTopOf="@+id/lienzo"
+        app:layout_constraintEnd_toStartOf="@+id/cargarImagen"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/cargarImagen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="17dp"
+        android:background="@drawable/imagen"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toTopOf="@+id/lienzo"
+        app:layout_constraintEnd_toStartOf="@+id/guardar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/guardar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:background="@drawable/guardar"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toTopOf="@+id/lienzo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Esto es el linzo o canvas donde se dibujara-->
+    <com.example.camaradibujo.Lienzo
+        android:id="@+id/lienzo"
+        android:layout_width="411dp"
+        android:layout_height="492dp"
+        android:layout_weight="5"
+        android:background="@color/blanco2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/anyadir" />
+
+    <!--A partir de aqui estaran los botones de colores y otros-->
+
+    <ImageButton
+        android:id="@+id/colornegro"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="161dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:background="@color/negro"
+        android:contentDescription="@string/vacio"
+        android:tag="@string/tagNegro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+    <ImageButton
+        android:id="@+id/colorblanco"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:background="@color/amarillo"
+        android:contentDescription="@string/vacio"
+        android:tag="@string/tagAmarillo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/colornegro"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+    <ImageButton
+        android:id="@+id/colorazul"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@color/azulVivo"
+        android:contentDescription="@string/vacio"
+        android:tag="@string/tagAzul"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/colorblanco" />
+
+    <ImageButton
+        android:id="@+id/colorrojo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:background="@color/rojoVivo"
+        android:contentDescription="@string/vacio"
+        android:tag="@string/tagRojo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/colorazul"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+    <ImageButton
+        android:id="@+id/colorverde"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:background="@color/verdeVivo"
+        android:contentDescription="@string/vacio"
+        android:tag="@string/tagVerde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/colorrojo"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+
+    <ImageButton
+        android:id="@+id/texto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="11dp"
+        android:layout_weight="1"
+        android:background="@drawable/texto"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintEnd_toStartOf="@+id/punto"
+        app:layout_constraintStart_toEndOf="@+id/colornegro"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+    <ImageButton
+        android:id="@+id/punto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:background="@drawable/punto"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/triangulo"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+    <ImageButton
+        android:id="@+id/triangulo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:background="@drawable/triangulo"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+
+</android.support.constraint.ConstraintLayout>
