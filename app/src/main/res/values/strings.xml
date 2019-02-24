@@ -10,7 +10,7 @@
     <string name="tagVerde">#FF00FF00</string>
     <string name="tagRojo">#FFFF0000</string>
     <string name="tagAzul">#FF0000FF</string>
-    <string name="tagBlanco">#FFFFFFFF</string>
+    <string name="tagAmarillo">#ffe65d</string>
 
 
 </resources>

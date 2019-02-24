@@ -32,8 +32,8 @@ public class Camara extends AppCompatActivity {
 
     private final String CARPETA_RAIZ = "misImagenesPrueba/";  // aqui es donde se guardara las fotos
     private final String RUTA_IMAGEN = CARPETA_RAIZ + "misFotos"; // esta ruta permitira cargar la imagen desde el movil
-    final int COD_SELECCIONA = 10; // codigo de tipo de accion
-    final int COD_FOTO = 20;// codigo de tipo de accion
+    final int COD_SELECCIONA = 10; // es para seleccionar la foto creada
+    final int COD_FOTO = 20; // con esto permitiremos que las imagenes se almacenen en la galeria
     private Button botonCargar;
     private ImageView imagen;
     private  String path;  // es la direccion donde se guardara la imagen
@@ -100,6 +100,7 @@ public class Camara extends AppCompatActivity {
         }
         // esto sera la ruta donde se guardara la imagen, File.separator = /
         path = Environment.getExternalStorageDirectory()+ File.separator + RUTA_IMAGEN + File.separator + nombreImagen;
+        //System.out.println("===> el path: " + path);
         File imagen = new File(path); // se guardara el archivo creado
 
         Intent intent = null;
@@ -109,6 +110,7 @@ public class Camara extends AppCompatActivity {
             String authorities = getApplicationContext().getPackageName() + ".provider";
             //Uri imageUri = FileProvider.getUriForFile(this,authorities,imagen); // Desactualizado, solo funciona hasta la API 23
             Uri imageUri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", imagen);
+            //System.out.println("===> el imageUri: " + imageUri);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         }else{
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
@@ -125,6 +127,7 @@ public class Camara extends AppCompatActivity {
             switch (requestCode){
                 case COD_SELECCIONA:  // es para seleccionar la foto creada
                     Uri miPath = data.getData();
+                    //Log.i("===> miPath<====", " " + miPath); // direccion de ubicacion
                     imagen.setImageURI(miPath);
                     break;
 

@@ -1,37 +1,49 @@
 package com.example.camaradibujo;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.UUID;
 
 public class Retocar extends AppCompatActivity implements View.OnClickListener{
 
-    private ImageButton negro;
-    private ImageButton blanco;
-    private ImageButton rojo;
-    private ImageButton verde;
-    private ImageButton azul;
-    private static Lienzo lienzo;
-    private float ppequenyo;
-    private float pmediano;
-    private float pgrande;
-    private float pdefecto;
-    private ImageButton trazo;
-    private ImageButton anyadir;
-    private ImageButton borrar;
-    private ImageButton guardar;
-
+    private ImageButton negro, blanco, rojo, verde, azul; //Botones para los colores
+    private ImageButton texto, punto, triangulo; // es para las figuras y texto en lienzo
+    private static Lienzo lienzo; // esto es el canvas
+    private float ppequenyo, pmediano, pgrande, pdefecto; // para el tamaño del pincel o borrador
+    private ImageButton trazo; // para el tamaño de pincel
+    private ImageButton anyadir; // Para crear un nuevo lienzo
+    private ImageButton borrar; // para borrar el lienzo (canvas) por medio del pincel(tamaño de borrador)
+    private ImageButton guardar; // para guardar la imagen retocada
+    private ImageButton cargarImagenGaleria; // para cargar una imagen desde la galeria
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1 ; // servira para el permiso de escritura
 
     @Override
@@ -39,16 +51,23 @@ public class Retocar extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retocar);
 
-        negro = (ImageButton)findViewById(R.id.colornegro);
-        blanco = (ImageButton)findViewById(R.id.colorblanco);
-        rojo = (ImageButton)findViewById(R.id.colorrojo);
-        verde = (ImageButton)findViewById(R.id.colorverde);
-        azul = (ImageButton)findViewById(R.id.colorazul);
-        trazo = (ImageButton)findViewById(R.id.trazo);
-        anyadir = (ImageButton)findViewById(R.id.anyadir);
-        borrar = (ImageButton)findViewById(R.id.borrar);
-        guardar = (ImageButton)findViewById(R.id.guardar);
-
+        // Botones para las figuras texto, punto y triangulo
+        texto = findViewById(R.id.texto);
+        punto = findViewById(R.id.punto);
+        triangulo = findViewById(R.id.triangulo);
+        //Botones para los colores
+        negro = findViewById(R.id.colornegro);
+        blanco = findViewById(R.id.colorblanco);
+        rojo = findViewById(R.id.colorrojo);
+        verde = findViewById(R.id.colorverde);
+        azul = findViewById(R.id.colorazul);
+        //Botones para las acciones
+        trazo = findViewById(R.id.trazo);
+        anyadir = findViewById(R.id.anyadir);
+        borrar = findViewById(R.id.borrar);
+        guardar = findViewById(R.id.guardar);
+        cargarImagenGaleria = findViewById(R.id.cargarImagen);
+        // escucha de todos los botones
         negro.setOnClickListener(this);
         blanco.setOnClickListener(this);
         rojo.setOnClickListener(this);
@@ -58,14 +77,16 @@ public class Retocar extends AppCompatActivity implements View.OnClickListener{
         anyadir.setOnClickListener(this);
         borrar.setOnClickListener(this);
         guardar.setOnClickListener(this);
-
-        lienzo = (Lienzo)findViewById(R.id.lienzo);
+        cargarImagenGaleria.setOnClickListener(this);
+        texto.setOnClickListener(this);
+        punto.setOnClickListener(this);
+        triangulo.setOnClickListener(this);
+        lienzo = findViewById(R.id.lienzo);  // se declara el lienzo o canvas
         // sirven para el tamaño de pincel y tamaño de borrador
         ppequenyo= 10;
         pmediano= 30;
         pgrande= 50;
-
-        pdefecto= pmediano; // es el tamñano or defecto con que inicia el pincel u borrador
+        pdefecto= ppequenyo; // es el tamñano por defecto con que inicia el pincel u borrador
 
         // esto es para el permiso es escritura
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -76,10 +97,6 @@ public class Retocar extends AppCompatActivity implements View.OnClickListener{
             }
         }
     }
-
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -106,6 +123,12 @@ public class Retocar extends AppCompatActivity implements View.OnClickListener{
                 color = v.getTag().toString();
                 lienzo.setColor(color);
                 break;
+            case R.id.texto:
+
+                // FALTA HACER PARA AGREGAR EL TEXTO
+
+                break;
+
             case R.id.trazo: // aqui se eligira el tamaño del punto para el pincel
                 final CharSequence[] opcionesPincel = {"Pequeño","Mediano", "Grande"}; // opciones a mostrar
                 final AlertDialog.Builder tamanyopuntoPincel = new AlertDialog.Builder(Retocar.this); // para mostrar las opciones
@@ -133,8 +156,8 @@ public class Retocar extends AppCompatActivity implements View.OnClickListener{
                     }
                 });
                 tamanyopuntoPincel.show();//Mostrar y esperar la interacción del usuario.
-
                 break;
+
             case R.id.anyadir: // para reiniciar el lienzo o no
                 AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
                 newDialog.setTitle("Nuevo Dibujo");
@@ -152,8 +175,8 @@ public class Retocar extends AppCompatActivity implements View.OnClickListener{
                     }
                 });
                 newDialog.show();
-
                 break;
+
             case R.id.borrar: // esto es el tamaño del borrador
                 final CharSequence[] opcionesBorrador = {"Pequeño","Mediano", "Grande"}; // opciones a mostrar
                 final AlertDialog.Builder tamanyopuntoBorrador = new AlertDialog.Builder(Retocar.this); // para mostrar las opciones
@@ -180,31 +203,47 @@ public class Retocar extends AppCompatActivity implements View.OnClickListener{
                     }
                 });
                 tamanyopuntoBorrador.show(); //Mostrar y esperar la interacción del usuario.
+                break;
+
+
+             //-------------------------------------------------------------------------------------
+             //-------------------------------------------------------------------------------------
+            case R.id.cargarImagen: // servira para cargar una imagen de la galeria
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/");// direccion donde se encuentran las imagenes(galeria de imagenes)
+                startActivityForResult(intent.createChooser(intent,"Seleccione la Aplicación"),10);
+
+
+
+                // FALTA HACER PARA CARGAR LA IMAGEN
+
+
+
 
                 break;
-            case R.id.guardar:  // esto es para guardar la imagen
+            //-------------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------------
 
+
+
+            case R.id.guardar:  // esto es para guardar la imagen
                 AlertDialog.Builder salvarDibujo = new AlertDialog.Builder(this);
                 salvarDibujo.setTitle("Salvar dibujo");
                 salvarDibujo.setMessage("¿Salvar Dibujo a la galeria?");
                 salvarDibujo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int which){
-                        //Salvar dibujo
-                        lienzo.setDrawingCacheEnabled(true);
+                        lienzo.setDrawingCacheEnabled(true);//Salvar dibujo
                         //intento de salvar
-                        String imgSaved = MediaStore.Images.Media.insertImage(
-                                getContentResolver(), lienzo.getDrawingCache(),
-                                UUID.randomUUID().toString()+".png", "drawing");
+                        String imgSaved = MediaStore.Images.Media.insertImage(getContentResolver(), lienzo.getDrawingCache(),UUID.randomUUID().toString()+".png", "drawing");
                         //Mensaje de todo correcto
                         if(imgSaved!=null){
-                            Toast savedToast = Toast.makeText(getApplicationContext(),
-                                    "¡Dibujo salvado en la galeria!", Toast.LENGTH_SHORT);
-                            savedToast.show();
+                            Toast ImagenGuardada = Toast.makeText(getApplicationContext(), "¡Dibujo salvado en la galeria!", Toast.LENGTH_LONG);
+                            ImagenGuardada.show();
                         }
                         else{
-                            Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                                    "¡Error! La imagen no ha podido ser salvada.", Toast.LENGTH_SHORT);
-                            unsavedToast.show();
+                            Toast imagenNoGuardada = Toast.makeText(getApplicationContext(), "¡Error! La imagen no ha podido ser salvada.", Toast.LENGTH_LONG);
+                            imagenNoGuardada.show();
                         }
                         lienzo.destroyDrawingCache();
                     }
@@ -215,15 +254,48 @@ public class Retocar extends AppCompatActivity implements View.OnClickListener{
                     }
                 });
                 salvarDibujo.show();
-
                 break;
-            default:
 
+            default:
                 break;
         }
-
-
     }
+
+
+
+    @Override // es para los permisos y la accion a realizar
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // con esto cargamos la imagen de la galeria
+        if (resultCode == RESULT_OK){
+            switch (requestCode){
+                case 10:  // es para seleccionar la foto creada
+                    Uri miPath = data.getData();
+                    String stringUri;
+                    stringUri = miPath.toString(); // convierte el uri en string
+                    //System.out.println("===> URI A STRING: " + stringUri);
+
+
+
+                    //Log.i("===> miPath<====", " RETOCAR: " + miPath); // direccionde ubicacion
+                    // content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F39/ORIGINAL/NONE/592715019
+
+
+                    //PATH      => /storage/emulated/0/misImagenesPrueba/misFotos/1550976122.jpg
+                    //imageUri  =>  content://com.example.camaradibujo.provider/external_files/misImagenesPrueba/misFotos/1550976367.jpg
+
+
+                    //imagen.setImageURI(miPath);
+                    //lienzo.cargaImagen(miPath);
+                    break;
+            }
+        }
+    }
+
+
+
+
+
 
 
 

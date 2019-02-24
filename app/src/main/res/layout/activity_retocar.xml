@@ -47,6 +47,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:id="@+id/cargarImagen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="17dp"
+        android:background="@drawable/imagen"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toTopOf="@+id/lienzo"
+        app:layout_constraintEnd_toStartOf="@+id/guardar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
         android:id="@+id/guardar"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -58,7 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <!--Esto es el linzo o canvas donde se dibujara-->
     <com.example.camaradibujo.Lienzo
         android:id="@+id/lienzo"
         android:layout_width="411dp"
@@ -68,6 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/anyadir" />
 
+    <!--A partir de aqui estaran los botones de colores y otros-->
 
     <ImageButton
         android:id="@+id/colornegro"
@@ -78,8 +90,8 @@
         android:layout_marginBottom="1dp"
         android:layout_weight="1"
         android:background="@color/negro"
-        android:tag="@string/tagNegro"
         android:contentDescription="@string/vacio"
+        android:tag="@string/tagNegro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lienzo" />
@@ -91,9 +103,9 @@
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
         android:layout_weight="1"
-        android:background="@color/blanco2"
-        android:tag="@string/tagBlanco"
+        android:background="@color/amarillo"
         android:contentDescription="@string/vacio"
+        android:tag="@string/tagAmarillo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/colornegro"
         app:layout_constraintTop_toBottomOf="@+id/lienzo" />
@@ -102,11 +114,10 @@
         android:id="@+id/colorazul"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="1dp"
         android:layout_weight="1"
         android:background="@color/azulVivo"
-        android:tag="@string/tagAzul"
         android:contentDescription="@string/vacio"
+        android:tag="@string/tagAzul"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/colorblanco" />
 
@@ -118,8 +129,8 @@
         android:layout_marginBottom="1dp"
         android:layout_weight="1"
         android:background="@color/rojoVivo"
-        android:tag="@string/tagRojo"
         android:contentDescription="@string/vacio"
+        android:tag="@string/tagRojo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/colorazul"
         app:layout_constraintTop_toBottomOf="@+id/lienzo" />
@@ -131,22 +142,48 @@
         android:layout_marginBottom="1dp"
         android:layout_weight="1"
         android:background="@color/verdeVivo"
-        android:tag="@string/tagVerde"
         android:contentDescription="@string/vacio"
+        android:tag="@string/tagVerde"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/colorrojo"
         app:layout_constraintTop_toBottomOf="@+id/lienzo" />
 
+
     <ImageButton
-        android:id="@+id/cargarImagen"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="17dp"
-        android:background="@drawable/imagen"
+        android:id="@+id/texto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="11dp"
+        android:layout_weight="1"
+        android:background="@drawable/texto"
         android:contentDescription="@string/vacio"
-        app:layout_constraintBottom_toTopOf="@+id/lienzo"
-        app:layout_constraintEnd_toStartOf="@+id/guardar"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/punto"
+        app:layout_constraintStart_toEndOf="@+id/colornegro"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+    <ImageButton
+        android:id="@+id/punto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:background="@drawable/punto"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/triangulo"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
+
+    <ImageButton
+        android:id="@+id/triangulo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:background="@drawable/triangulo"
+        android:contentDescription="@string/vacio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lienzo" />
 
 
 </android.support.constraint.ConstraintLayout>
